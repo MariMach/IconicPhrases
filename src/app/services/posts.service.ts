@@ -31,9 +31,13 @@ export class PostsService {
       title: titlev,
       content: contentv
     };
-    this.posts.push(post);
-    // pushs a new value a copy emits posts
-    this.postsUpdated.next([...this.posts]);
+    this.httpClient
+      .post<{ message: string }>("http://localhost:3000/api/posts", post)
+      .subscribe(resData => {
+        console.log(resData.message);
+        this.posts.push(post);
+        this.postsUpdated.next([...this.posts]);
+      });
   }
 
   getPostUpdateListener() {
