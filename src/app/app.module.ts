@@ -1,3 +1,4 @@
+import { AppRoutingModule } from "./routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -33,7 +34,8 @@ import { HttpClientModule } from "@angular/common/http";
     MatToolbarModule,
     MatSliderModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
