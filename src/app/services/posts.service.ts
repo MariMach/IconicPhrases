@@ -67,4 +67,24 @@ export class PostsService {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
+
+  getPost(id: string) {
+    return this.httpClient.get<{ _id: string; title: string; content: string }>(
+      "http://localhost:3000/api/posts/" + id
+    );
+  }
+
+  updatePost(postid: string, posttitle: string, postcontent: string) {
+    const post: Post = { id: postid, title: posttitle, content: postcontent };
+    // send request to the backend
+    this.httpClient
+      .put("http://localhost:3000/api/posts/" + postid, post)
+      .subscribe(result => {
+        const updPosts = [...this.posts];
+        const oldPostIndex = updPosts.findIndex(p => p.id === post.id);
+        updPosts[oldPostIndex] = post;
+        this.posts = updPosts;
+        this.postsUpdated.next([...this.posts]);
+      });
+  }
 }
