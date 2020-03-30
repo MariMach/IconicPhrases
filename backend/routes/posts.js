@@ -52,29 +52,39 @@ router.post(
   }
 );
 
-router.put("/:id", (req, res, next) => {
-  const post = new Post({
-    _id: req.body.id,
-    title: req.body.title,
-    content: req.body.content
-  });
-  Post.updateOne({ _id: req.params.id }, post)
-    .then(result => {
-      console.log(result);
-      res.status(200).json({
-        message: "Post updated!"
-      });
-    })
-    .catch(() => {
-      console.log("something went wrong with the update");
+router.put(
+  "/:id",
+  multer({ storage: storage }).single("image"),
+  (req, res, next) => {
+    let imagePath = req.body.imagePath;
+    if (req.file) {
+      const url = req.protocol + "://" + req.get("host");
+      imagePath = url + "/images/" + req.file.filename;
+    }
+    const post = new Post({
+      _id: req.body.id,
+      title: req.body.title,
+      content: req.body.content,
+      imagePath: imagePath
     });
-});
+    Post.updateOne({ _id: req.params.id }, post)
+      .then(result => {
+        console.log(result);
+        res.status(200).json({
+          message: "Post updated!"
+        });
+      })
+      .catch(() => {
+        console.log("something went wrong with the update");
+      });
+  }
+);
 
 router.get("", (req, res, next) => {
   Post.find()
     .then(doc => {
       res.status(200).json({
-        message: "Posts fetched succesfully!",
+        message: "Posts fetched succesfu lly!",
         posts: doc
       });
     })
