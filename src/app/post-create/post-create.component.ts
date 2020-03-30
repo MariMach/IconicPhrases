@@ -1,3 +1,4 @@
+import { mimeType } from "./mime-type.validator";
 import { Post } from "./../models/post.model";
 import { PostsService } from "./../services/posts.service";
 import { Component, OnInit } from "@angular/core";
@@ -15,6 +16,7 @@ export class PostCreateComponent implements OnInit {
   post: Post;
   isLoading = false;
   form: FormGroup;
+  imagePrev;
 
   constructor(
     public postsService: PostsService,
@@ -28,6 +30,10 @@ export class PostCreateComponent implements OnInit {
       }),
       content: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [mimeType]
       })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -54,6 +60,17 @@ export class PostCreateComponent implements OnInit {
         this.postId = null;
       }
     });
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ image: file });
+    this.form.get("image").updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePrev = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   OnSavePost() {
