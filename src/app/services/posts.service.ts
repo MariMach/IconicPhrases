@@ -25,7 +25,8 @@ export class PostsService {
             return {
               id: doc._id,
               title: doc.title,
-              content: doc.content
+              content: doc.content,
+              imagePath: doc.imagePath
             };
           });
         })
@@ -53,15 +54,16 @@ export class PostsService {
     postData.append("image", image, titlev);
 
     this.httpClient
-      .post<{ message: string; postId: string }>(
+      .post<{ message: string; post: Post }>(
         "http://localhost:3000/api/posts",
         postData
       )
       .subscribe(resData => {
         const post: Post = {
-          id: resData.postId,
+          id: resData.post.id,
           title: titlev,
-          content: contentv
+          content: contentv,
+          imagePath: resData.post.imagePath
         };
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
@@ -80,7 +82,12 @@ export class PostsService {
   }
 
   updatePost(postid: string, posttitle: string, postcontent: string) {
-    const post: Post = { id: postid, title: posttitle, content: postcontent };
+    const post: Post = {
+      id: postid,
+      title: posttitle,
+      content: postcontent,
+      imagePath: null
+    };
     // send request to the backend
     this.httpClient
       .put("http://localhost:3000/api/posts/" + postid, post)
