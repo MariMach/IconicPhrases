@@ -1,3 +1,4 @@
+import { AuthInterceptor } from "./services/auth-interceptor";
 import { AppRoutingModule } from "./routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
@@ -17,7 +18,7 @@ import {
 } from "@angular/material";
 import { HeaderComponent } from "./header/header.component";
 import { PostListComponent } from "./post-list/post-list.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LoginCompComponent } from "./auth/login-comp/login-comp.component";
 import { SignupCompComponent } from "./auth/signup-comp/signup-comp.component";
 
@@ -46,7 +47,9 @@ import { SignupCompComponent } from "./auth/signup-comp/signup-comp.component";
     MatProgressSpinnerModule,
     MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
