@@ -30,7 +30,8 @@ export class PostsService {
                 id: doc._id,
                 title: doc.title,
                 content: doc.content,
-                imagePath: doc.imagePath
+                imagePath: doc.imagePath,
+                creator: doc.creator
               };
             }),
             maxPosts: postData.maxPosts

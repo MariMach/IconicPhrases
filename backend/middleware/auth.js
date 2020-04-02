@@ -12,6 +12,7 @@ module.exports = function(req, res, next) {
     // const decoded = jwt.verify(token, "thisisthesecretshouldbelonger");
     // req.user = decoded;
     const decoded = jwt.verify(token, "thisisthesecretshouldbelonger");
+    req.userData = { email: decoded.email, userId: decoded.userId };
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invaid token ..." });
