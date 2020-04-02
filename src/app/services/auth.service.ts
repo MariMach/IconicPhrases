@@ -9,11 +9,28 @@ import { AuthData } from "../models/auth-data.model";
   providedIn: "root"
 })
 export class AuthService {
+  private isAuthenticated = false;
   private token: string;
+  private authStatusListener = new Subject<boolean>();
+
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token;
+  }
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
+
+  logout() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    this.router.navigate(["/"]);
+  }
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
   }
 
   createUser(emaild: string, passwordd: string) {
@@ -33,7 +50,12 @@ export class AuthService {
         authData
       )
       .subscribe(res => {
-        this.token = res.token;
+        if (res.token) {
+          this.token = res.token;
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          this.router.navigate(["/"]);
+        }
       });
   }
 }
