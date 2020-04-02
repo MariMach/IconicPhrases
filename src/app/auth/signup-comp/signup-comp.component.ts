@@ -23,6 +23,7 @@ export class SignupCompComponent implements OnInit {
       console.log("passwords does not much");
       return;
     }
+    this.isLoading = true;
     this.authService.createUser(form.value.email, form.value.password);
   }
 }
