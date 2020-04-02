@@ -1,5 +1,6 @@
 import { AuthService } from "./auth.service";
 import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
