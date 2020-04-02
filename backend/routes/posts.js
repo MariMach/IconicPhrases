@@ -69,7 +69,8 @@ router.put(
       _id: req.body.id,
       title: req.body.title,
       content: req.body.content,
-      imagePath: imagePath
+      imagePath: imagePath,
+      creator: req.userData.userId
     });
     Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
       .then(result => {
@@ -133,12 +134,18 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", auth, (req, res, next) => {
-  Post.findByIdAndDelete(req.params.id)
+  Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
       console.log(result);
-      res.status(200).json({
-        message: "Post deleted!"
-      });
+      if (result.n > 0) {
+        res.status(200).json({
+          message: "Post Deleted!"
+        });
+      } else {
+        res.status(401).json({
+          message: "Not Authorized!"
+        });
+      }
     })
     .catch(() => {
       console.log("something went wrong");
