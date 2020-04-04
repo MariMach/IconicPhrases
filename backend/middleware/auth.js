@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+//
 module.exports = function(req, res, next) {
   //const token = req.header("x-auth-token");
   // token as a query parameter
@@ -11,7 +12,7 @@ module.exports = function(req, res, next) {
     // const decoded = jwt.verify(token, config.get("jwtPrivateKey"));
     // const decoded = jwt.verify(token, "thisisthesecretshouldbelonger");
     // req.user = decoded;
-    const decoded = jwt.verify(token, "thisisthesecretshouldbelonger");
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
     req.userData = { email: decoded.email, userId: decoded.userId };
     next();
   } catch (error) {

@@ -8,7 +8,9 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://mariam:AE5WNb0qBCkuCymC@cluster0-dfzxy.mongodb.net/iconic-phrases?retryWrites=true&w=majority",
+    "mongodb+srv://mariam:" +
+      process.env.MONGO_ATLAS_PW +
+      "@cluster0-dfzxy.mongodb.net/iconic-phrases?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {

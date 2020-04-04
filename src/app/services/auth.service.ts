@@ -6,7 +6,7 @@ import { AuthData } from "../models/auth-data.model";
 
 import { environment } from "../../environments/environment";
 
-const BACKEND_URL = environment.apiUrl + "/users";
+const BACKEND_URL = environment.apiUrl + "/users/";
 
 @Injectable({
   providedIn: "root"
@@ -98,7 +98,7 @@ export class AuthService {
 
   createUser(emaild: string, passwordd: string) {
     const authData: AuthData = { email: emaild, password: passwordd };
-    return this.httpClient.post(BACKEND_URL + "/signup", authData).subscribe(
+    return this.httpClient.post(BACKEND_URL + "signup", authData).subscribe(
       () => {
         this.router.navigate(["/"]);
       },
@@ -112,7 +112,7 @@ export class AuthService {
     const authData: AuthData = { email: emaild, password: passwordd };
     this.httpClient
       .post<{ token: string; expiresIn: number; userId: string }>(
-        BACKEND_URL + "/login",
+        BACKEND_URL + "login",
         authData
       )
       .subscribe(
