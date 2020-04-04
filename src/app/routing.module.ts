@@ -1,5 +1,3 @@
-import { SignupCompComponent } from "./auth/signup-comp/signup-comp.component";
-import { LoginCompComponent } from "./auth/login-comp/login-comp.component";
 import { PostCreateComponent } from "./posts/post-create/post-create.component";
 import { PostListComponent } from "./posts/post-list/post-list.component";
 import { NgModule } from "@angular/core";
@@ -22,12 +20,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "login",
-    component: LoginCompComponent
-  },
-  {
-    path: "signup",
-    component: SignupCompComponent
+    path: "auth",
+    loadChildren: "./auth/auth.module#AuthModule"
   }
 ];
 

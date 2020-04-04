@@ -1,4 +1,3 @@
-import { AuthModule } from "./auth/auth.module";
 import { PostsModule } from "./posts/posts.module";
 import { AngularMaterialModule } from "./angular-material.module";
 import { AuthInterceptor } from "./services/auth-interceptor";
@@ -17,7 +16,6 @@ import { ErrorCompComponent } from "./error-comp/error-comp.component";
   imports: [
     BrowserModule,
     PostsModule,
-    AuthModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
