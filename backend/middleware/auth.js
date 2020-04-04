@@ -15,6 +15,6 @@ module.exports = function(req, res, next) {
     req.userData = { email: decoded.email, userId: decoded.userId };
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invaid token ..." });
+    return res.status(401).json({ message: "You are not authenticated!" });
   }
 };
