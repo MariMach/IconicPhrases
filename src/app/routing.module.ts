@@ -1,7 +1,7 @@
 import { SignupCompComponent } from "./auth/signup-comp/signup-comp.component";
 import { LoginCompComponent } from "./auth/login-comp/login-comp.component";
-import { PostCreateComponent } from "./post-create/post-create.component";
-import { PostListComponent } from "./post-list/post-list.component";
+import { PostCreateComponent } from "./posts/post-create/post-create.component";
+import { PostListComponent } from "./posts/post-list/post-list.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "./services/auth.guard";

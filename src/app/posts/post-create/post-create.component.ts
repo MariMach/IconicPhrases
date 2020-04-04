@@ -1,8 +1,8 @@
-import { AuthService } from "./../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { Subscription } from "rxjs";
 import { mimeType } from "./mime-type.validator";
-import { Post } from "./../models/post.model";
-import { PostsService } from "./../services/posts.service";
+import { Post } from "../../models/post.model";
+import { PostsService } from "../../services/posts.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";

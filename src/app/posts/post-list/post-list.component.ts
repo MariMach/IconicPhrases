@@ -1,8 +1,8 @@
-import { AuthService } from "./../services/auth.service";
-import { Post } from "./../models/post.model";
+import { AuthService } from "../../services/auth.service";
+import { Post } from "../../models/post.model";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-import { PostsService } from "../services/posts.service";
+import { PostsService } from "../../services/posts.service";
 import { PageEvent } from "@angular/material";
 
 @Component({
