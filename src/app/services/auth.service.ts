@@ -1,10 +1,9 @@
+import { environment } from "./../../environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { AuthData } from "../models/auth-data.model";
-
-import { environment } from "../../environments/environment";
 
 const BACKEND_URL = environment.apiUrl + "/users/";
 
