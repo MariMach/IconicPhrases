@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
+const compression = require("compression");
 const postsRoutes = require("./routes/posts");
 const usersRoutes = require("./routes/users");
 const path = require("path");
@@ -41,5 +43,8 @@ app.use((req, res, next) => {
 
 app.use("/api/posts", postsRoutes);
 app.use("/api/users", usersRoutes);
+
+app.use(helmet());
+app.use(compression());
 
 module.exports = app;
